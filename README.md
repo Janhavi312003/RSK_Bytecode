@@ -9,7 +9,7 @@
 
 Verify that deployed smart contracts on Rootstock match their source code by comparing on-chain bytecode with locally compiled bytecode.
 
-**Live Demo** • **Documentation** • **Report Bug**
+**Documentation** 
 
 ---
 
