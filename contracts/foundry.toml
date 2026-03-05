@@ -1,0 +1,11 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+
+[etherscan]
+rsk = { key = "${ETHERSCAN_API_KEY}" }
+
+[rpc_endpoints]
+rsk-mainnet = "${RSK_MAINNET_RPC}"
+rsk-testnet = "${RSK_TESTNET_RPC}"
