@@ -9,7 +9,7 @@
 
 Verify that deployed smart contracts on Rootstock match their source code by comparing on-chain bytecode with locally compiled bytecode.
 
-**Documentation** 
+• **Documentation** • 
 
 ---
 
@@ -149,7 +149,7 @@ Rootstock Blockchain
 Clone repository
 
 ```bash
-git clone https://github.com/your-repo/rsk-bytecode-verifier.git
+git clone https://github.com/rootstock/rsk-bytecode-verifier.git
 cd rsk-bytecode-verifier
 ```
 
@@ -159,7 +159,13 @@ Install dependencies
 npm install
 ```
 
-Create `.env`
+Copy `.env.example` to `.env` and fill in values:
+
+```bash
+cp .env.example .env
+```
+
+Then edit `.env`:
 
 ```env
 NEXT_PUBLIC_RSK_MAINNET_RPC=https://public-node.rsk.co

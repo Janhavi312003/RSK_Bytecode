@@ -1,15 +1,11 @@
-'use client'
+'use client';
 
-import Header  from '@/components/layout/Header'
-import Footer from '@/components/layout/Footer';
-import { FaGithub, FaDiscord, FaEnvelope } from 'react-icons/fa'
-import Link from 'next/link'
+import { FaGithub, FaDiscord, FaEnvelope } from 'react-icons/fa';
+import Link from 'next/link';
 
 export default function ContactPage() {
   return (
     <div className="min-h-screen flex flex-col bg-black">
-      {/* <Header /> */}
-
       <main className="flex-1">
         <div className="max-w-4xl mx-auto px-6 py-16">
 
@@ -34,7 +30,7 @@ export default function ContactPage() {
 
               {/* GitHub */}
               <Link
-                href="https://github.com/your-repo/rsk-bytecode-verifier"
+                href="https://github.com/rootstock/rsk-bytecode-verifier"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-black border border-[#2a2a2a] p-6 rounded-lg hover:border-[#FF6600] transition group"
@@ -66,15 +62,17 @@ export default function ContactPage() {
 
               {/* Email */}
               <a
-                href="mailto:support@example.com"
+                href="https://discord.gg/rootstock"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="bg-black border border-[#2a2a2a] p-6 rounded-lg hover:border-[#FF6600] transition group"
               >
                 <FaEnvelope className="text-[#FF6600] text-2xl mb-4" />
                 <h3 className="text-white font-semibold mb-2 group-hover:text-[#FF6600] transition-colors">
-                  Email Support
+                  Community Support
                 </h3>
                 <p className="text-gray-400 text-sm">
-                  Contact us directly for technical or business inquiries.
+                  Get support via the Rootstock Discord community.
                 </p>
               </a>
 
@@ -94,7 +92,7 @@ export default function ContactPage() {
 
             <div className="flex flex-wrap gap-4">
               <Link
-                href="https://github.com/your-repo/rsk-bytecode-verifier"
+                href="https://github.com/rootstock/rsk-bytecode-verifier"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-5 py-2 bg-[#FF6600] text-white rounded-lg hover:bg-[#E55A00] transition"
@@ -115,8 +113,6 @@ export default function ContactPage() {
 
         </div>
       </main>
-
-      <Footer />
     </div>
-  )
+  );
 }

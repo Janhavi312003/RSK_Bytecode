@@ -137,7 +137,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/verify"
+                  href="/dashboard"
                   className="text-[#a0a0a0] hover:text-[#FF6600] text-sm transition-colors"
                 >
                   Verify Contract

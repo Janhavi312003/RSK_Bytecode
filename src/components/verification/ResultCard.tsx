@@ -9,7 +9,7 @@ interface ResultCardProps {
 }
 
 export function ResultCard({ result }: ResultCardProps) {
-  const { match, deployedHash, localHash, differences, deployedBytecode, localBytecode } = result;
+  const { match, deployedHash, localHash, differences, deployedBytecode, localBytecode, lengthMismatch } = result;
 
   return (
     <Card className="mt-6">
@@ -35,6 +35,11 @@ export function ResultCard({ result }: ResultCardProps) {
           </div>
         </div>
 
+        {!match && lengthMismatch && (
+          <p className="text-sm text-amber-500">
+            Bytecode lengths differ — one side has missing bytes (shown as <code>--</code> in the diff).
+          </p>
+        )}
         {!match && differences && (
           <ByteDiffViewer
             differences={differences}

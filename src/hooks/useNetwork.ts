@@ -1,14 +1,14 @@
-import { useNetwork, useSwitchNetwork } from 'wagmi';
+import { useAccount, useSwitchChain } from 'wagmi';
 
 export function useNetworkUtils() {
-  const { chain } = useNetwork();
-  const { switchNetwork } = useSwitchNetwork();
+  const { chain } = useAccount();
+  const { switchChain } = useSwitchChain();
 
   const isSupported = chain?.id === 30 || chain?.id === 31; // Rootstock Mainnet/Testnet
 
   return {
     currentChain: chain,
     isSupported,
-    switchNetwork,
+    switchChain,
   };
 }

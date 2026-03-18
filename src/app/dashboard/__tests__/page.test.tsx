@@ -3,20 +3,19 @@ import '@testing-library/jest-dom';
 import { useAccount, usePublicClient } from 'wagmi';
 import DashboardPage from '../page';
 
+jest.mock('@rainbow-me/rainbowkit', () => ({
+  ConnectButton: () => <div data-testid="connect-button" />,
+}));
+
 jest.mock('wagmi', () => ({
   useAccount: jest.fn(),
   usePublicClient: jest.fn(),
 }));
 
-jest.mock('@/components/verification/ContractAddressInput', () => {
-  const { useAccount } = require('wagmi');
-  return {
-    ContractAddressInput: () => {
-      const { isConnected } = useAccount();
-      return isConnected ? <div data-testid="contract-input" /> : null;
-    },
-  };
-});
+jest.mock('@/components/verification/ContractAddressInput', () => ({
+  ContractAddressInput: (props: { disabled?: boolean }) =>
+    props.disabled ? null : <div data-testid="contract-input" />,
+}));
 jest.mock('@/components/verification/BytecodeUpload', () => ({
   BytecodeUpload: () => <div data-testid="bytecode-upload" />,
 }));
@@ -30,7 +29,6 @@ jest.mock('@/components/verification/ResultCard', () => ({
 describe('DashboardPage', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    // provide a no‑op implementation so DashboardPage can invoke it
     (usePublicClient as jest.Mock).mockReturnValue(jest.fn());
   });
 
@@ -39,7 +37,8 @@ describe('DashboardPage', () => {
 
     render(<DashboardPage />);
 
-    expect(screen.getByText(/connect your wallet/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /wallet connection required/i })).toBeInTheDocument();
+    expect(screen.getByTestId('connect-button')).toBeInTheDocument();
     expect(screen.queryByTestId('contract-input')).not.toBeInTheDocument();
   });
 

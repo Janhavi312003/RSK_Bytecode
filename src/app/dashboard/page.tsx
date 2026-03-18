@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAccount } from 'wagmi';
 import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { ContractAddressInput } from '@/components/verification/ContractAddressInput';
@@ -13,24 +13,64 @@ import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { FaShieldAlt, FaInfoCircle, FaLock } from 'react-icons/fa';
 import { Card, CardContent } from '@/components/ui/card';
+import {
+  normalizeContractAddress,
+  contractAddressError,
+  bytecodeError,
+  isValidBytecode,
+} from '@/lib/verification/validation';
 
 export default function DashboardPage() {
+  const [mounted, setMounted] = useState(false);
   const { isConnected } = useAccount();
   const [contractAddress, setContractAddress] = useState('');
   const [localBytecode, setLocalBytecode] = useState('');
   const [ignoreMetadata, setIgnoreMetadata] = useState(false);
+  const [validationError, setValidationError] = useState<string | null>(null);
   const { verify, loading, result, error } = useVerification();
 
+  // Avoid hydration mismatch: wallet state (useAccount) can differ between server and client.
+  // Only show wallet-dependent UI after mount so server and first client render match.
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const addressError = contractAddressError(contractAddress);
+  const bytecodeValidationError = bytecodeError(localBytecode);
+
   const handleCompare = () => {
-    if (!contractAddress || !localBytecode) return;
-    verify(contractAddress as `0x${string}`, localBytecode, { ignoreMetadata });
+    setValidationError(null);
+    const addr = normalizeContractAddress(contractAddress);
+    if (!addr) {
+      setValidationError(addressError ?? 'Invalid contract address.');
+      return;
+    }
+    if (!localBytecode.trim()) {
+      setValidationError('Please enter or upload compiled bytecode.');
+      return;
+    }
+    if (!isValidBytecode(localBytecode)) {
+      setValidationError(bytecodeValidationError ?? 'Invalid bytecode format.');
+      return;
+    }
+    verify(addr, localBytecode.trim(), { ignoreMetadata });
   };
+
+  const showOverlay = !mounted || !isConnected;
+  const canCompare =
+    mounted &&
+    isConnected &&
+    contractAddress.trim().length > 0 &&
+    localBytecode.trim().length > 0 &&
+    !addressError &&
+    !bytecodeValidationError &&
+    !loading;
 
   return (
     <div className="min-h-screen bg-[#0B0B0B] text-white">
       {/* Subtle radial gradient background */}
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,107,0,0.03),_transparent_50%)] pointer-events-none" />
-      
+
       <main className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header with icon and gradient */}
         <div className="flex items-center gap-4 mb-8">
@@ -75,7 +115,7 @@ export default function DashboardPage() {
 
         {/* Main verification card */}
         <Card className="bg-gradient-to-br from-[#0F0F0F] to-[#0A0A0A] border-orange-500/10 shadow-2xl shadow-orange-500/5 relative">
-          {!isConnected && (
+          {showOverlay && (
             <div className="absolute inset-0 bg-black/80 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center z-10 p-6">
               <FaLock className="text-orange-500 text-5xl mb-4" />
               <h2 className="text-2xl font-bold text-white mb-2">Wallet Connection Required</h2>
@@ -87,7 +127,7 @@ export default function DashboardPage() {
           )}
 
           <CardContent className="p-8">
-            {!isConnected && (
+            {showOverlay && (
               <Alert className="mb-6 bg-orange-500/5 border-orange-500/20 text-orange-200/90">
                 <AlertDescription>
                   Connect your wallet to enable verification. You can still read the info above.
@@ -99,35 +139,27 @@ export default function DashboardPage() {
               <ContractAddressInput
                 value={contractAddress}
                 onChange={setContractAddress}
-                disabled={!isConnected}
+                disabled={!mounted || !isConnected}
+                error={addressError}
               />
 
-              {/* Bytecode input without upload button */}
-              <div className="space-y-2">
-                <Label htmlFor="bytecode" className="text-gray-300">
-                  Compiled Bytecode <span className="text-orange-400/70 text-sm">(hex)</span>
-                </Label>
-                <textarea
-                  id="bytecode"
-                  placeholder="0x..."
-                  value={localBytecode}
-                  onChange={(e) => setLocalBytecode(e.target.value)}
-                  rows={6}
-                  disabled={!isConnected}
-                  className="w-full bg-black/50 border border-orange-500/20 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-transparent font-mono text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                />
-              </div>
+              <BytecodeUpload
+                value={localBytecode}
+                onChange={setLocalBytecode}
+                disabled={!mounted || !isConnected}
+                error={bytecodeValidationError}
+              />
 
               {/* Metadata toggle */}
-              <div className={`flex items-center justify-between bg-black/40 border border-orange-500/10 rounded-lg px-5 py-4 ${!isConnected ? 'opacity-50' : ''}`}>
+              <div className={`flex items-center justify-between bg-black/40 border border-orange-500/10 rounded-lg px-5 py-4 ${showOverlay ? 'opacity-50' : ''}`}>
                 <Label htmlFor="ignore-metadata" className="text-gray-300 cursor-pointer text-sm">
-                  Ignore metadata hash <span className="text-orange-400/70 text-xs ml-1">(strip last 53 bytes)</span>
+                  Ignore metadata hash <span className="text-orange-400/70 text-xs ml-1">(strip CBOR metadata via length in last 2 bytes)</span>
                 </Label>
                 <Switch
                   id="ignore-metadata"
                   checked={ignoreMetadata}
                   onCheckedChange={setIgnoreMetadata}
-                  disabled={!isConnected}
+                  disabled={!mounted || !isConnected}
                   className="data-[state=checked]:bg-orange-500"
                 />
               </div>
@@ -135,13 +167,13 @@ export default function DashboardPage() {
               {/* Prominent compare button */}
               <CompareButton
                 onClick={handleCompare}
-                disabled={!isConnected || !contractAddress || !localBytecode || loading}
+                disabled={!canCompare}
                 loading={loading}
               />
 
-              {error && (
+              {(validationError || error) && (
                 <Alert variant="destructive" className="mt-4 bg-red-500/10 border-red-500/30 text-red-200">
-                  <AlertDescription>{error}</AlertDescription>
+                  <AlertDescription>{validationError ?? error}</AlertDescription>
                 </Alert>
               )}
             </div>

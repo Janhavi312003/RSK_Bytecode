@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { usePublicClient } from 'wagmi';
 import { compareBytecode, ComparisonResult } from '@/lib/verification/compare';
-import { normalizeBytecode } from '@/lib/verification/normalize';
 
 export function useVerification() {
   const [loading, setLoading] = useState(false);

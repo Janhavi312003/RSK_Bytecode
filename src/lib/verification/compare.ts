@@ -1,12 +1,17 @@
 import { computeBytecodeHash } from './hash';
 import { normalizeBytecode } from './normalize';
 
+/** Placeholder for missing byte when bytecode lengths differ */
+export const MISSING_BYTE = '--';
+
 export interface ComparisonResult {
   match: boolean;
   deployedHash: string;
   localHash: string;
   deployedBytecode: string;
   localBytecode: string;
+  /** True when normalized bytecodes had different lengths (missing bytes, not just different values) */
+  lengthMismatch?: boolean;
   differences?: ByteDifference[];
 }
 
@@ -30,8 +35,11 @@ export function compareBytecode(
   const match = deployedHash === localHash;
 
   let differences: ByteDifference[] | undefined;
+  let lengthMismatch: boolean | undefined;
   if (!match) {
-    differences = findByteDifferences(normDeployed, normLocal);
+    const { diff, lengthDiff } = findByteDifferences(normDeployed, normLocal);
+    differences = diff;
+    lengthMismatch = lengthDiff;
   }
 
   return {
@@ -40,28 +48,34 @@ export function compareBytecode(
     localHash,
     deployedBytecode: normDeployed,
     localBytecode: normLocal,
+    lengthMismatch,
     differences,
   };
 }
 
-function findByteDifferences(hex1: string, hex2: string): ByteDifference[] {
-  // Remove 0x prefix and compare byte by byte (2 chars per byte)
+function findByteDifferences(
+  hex1: string,
+  hex2: string
+): { diff: ByteDifference[]; lengthDiff: boolean } {
   const raw1 = hex1.startsWith('0x') ? hex1.slice(2) : hex1;
   const raw2 = hex2.startsWith('0x') ? hex2.slice(2) : hex2;
-  
+  const lengthDiff = raw1.length !== raw2.length;
+
   const maxLength = Math.max(raw1.length, raw2.length);
   const diff: ByteDifference[] = [];
 
   for (let i = 0; i < maxLength; i += 2) {
-    const byte1 = raw1.slice(i, i + 2) || '00';
-    const byte2 = raw2.slice(i, i + 2) || '00';
-    if (byte1 !== byte2) {
+    const byte1 = raw1.slice(i, i + 2);
+    const byte2 = raw2.slice(i, i + 2);
+    const b1 = byte1 || MISSING_BYTE;
+    const b2 = byte2 || MISSING_BYTE;
+    if (b1 !== b2) {
       diff.push({
         index: i / 2,
-        deployedByte: byte1,
-        localByte: byte2,
+        deployedByte: b1,
+        localByte: b2,
       });
     }
   }
-  return diff;
+  return { diff, lengthDiff };
 }
