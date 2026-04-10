@@ -4,7 +4,7 @@ import { FaShieldAlt } from 'react-icons/fa'
 
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-[#0B0B0B] text-white">
+    <div className="min-h-screen bg-rsk-dark text-white">
 
       {/* subtle background glow */}
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,107,0,0.05),_transparent_50%)] pointer-events-none" />
@@ -52,7 +52,7 @@ export default function LandingPage() {
         {/* Features Section */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
 
-          <div className="p-6 rounded-xl bg-gradient-to-br from-[#0F0F0F] to-[#0A0A0A] border border-orange-500/10 shadow-lg">
+          <div className="p-6 rounded-xl bg-gradient-to-br from-rsk-surface to-rsk-surface2 border border-orange-500/10 shadow-lg">
             <h3 className="text-lg font-semibold mb-3 text-orange-400">
               🔍 Fetch Deployed Bytecode
             </h3>
@@ -62,7 +62,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="p-6 rounded-xl bg-gradient-to-br from-[#0F0F0F] to-[#0A0A0A] border border-orange-500/10 shadow-lg">
+          <div className="p-6 rounded-xl bg-gradient-to-br from-rsk-surface to-rsk-surface2 border border-orange-500/10 shadow-lg">
             <h3 className="text-lg font-semibold mb-3 text-orange-400">
               ⚖️ Compare Bytecode Hash
             </h3>
@@ -72,7 +72,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="p-6 rounded-xl bg-gradient-to-br from-[#0F0F0F] to-[#0A0A0A] border border-orange-500/10 shadow-lg">
+          <div className="p-6 rounded-xl bg-gradient-to-br from-rsk-surface to-rsk-surface2 border border-orange-500/10 shadow-lg">
             <h3 className="text-lg font-semibold mb-3 text-orange-400">
               🔐 Improve Transparency
             </h3>

@@ -15,12 +15,15 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
+    --ring: 215 20% 65%;
     /* ... other variables ... */
   }
 
   .dark {
     --background: 0 0% 4%;
     --foreground: 0 0% 98%;
+    /* Higher-contrast ring on dark backgrounds (approx Tailwind blue-300) */
+    --ring: 213 94% 76%;
     /* ... */
   }
 }

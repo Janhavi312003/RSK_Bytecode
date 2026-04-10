@@ -53,6 +53,11 @@ module.exports = {
         rsk: {
           orange: "#FF6B00",
           dark: "#0B0B0B",
+          panel: "#111111",
+          panelBorder: "#222222",
+          panelBorderStrong: "#2a2a2a",
+          surface: "#0F0F0F",
+          surface2: "#0A0A0A",
         },
       },
       backgroundImage: {

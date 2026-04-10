@@ -15,13 +15,19 @@ export function useVerification() {
   ) => {
     setLoading(true);
     setError(null);
+    setResult(null);
     try {
       if (!publicClient) {
         throw new Error('Public client is not initialized');
       }
       const deployedBytecode = await publicClient.getCode({ address });
-      if (!deployedBytecode) {
-        throw new Error('No bytecode found at this address');
+      if (
+        !deployedBytecode ||
+        deployedBytecode === '0x' ||
+        !localBytecode ||
+        localBytecode === '0x'
+      ) {
+        throw new Error('empty bytecode');
       }
 
       const comparison = compareBytecode(deployedBytecode, localBytecode, options);

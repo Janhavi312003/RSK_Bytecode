@@ -13,7 +13,7 @@ export default function AboutPage() {
         <div className="space-y-8">
 
           {/* What is it */}
-          <section className="bg-[#111111] border border-[#222222] p-6 rounded-xl">
+          <section className="bg-rsk-panel border border-rsk-panelBorder p-6 rounded-xl">
             <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3">
               <FaShieldAlt className="text-orange-500" />
               What is RSK Bytecode Verifier?
@@ -28,7 +28,7 @@ export default function AboutPage() {
           </section>
 
           {/* Why Transparency */}
-          <section className="bg-[#111111] border border-[#222222] p-6 rounded-xl">
+          <section className="bg-rsk-panel border border-rsk-panelBorder p-6 rounded-xl">
             <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3">
               <FaLock className="text-orange-500" />
               Why Transparency Matters
@@ -42,7 +42,7 @@ export default function AboutPage() {
           </section>
 
           {/* Mission */}
-          <section className="bg-[#111111] border border-[#222222] p-6 rounded-xl">
+          <section className="bg-rsk-panel border border-rsk-panelBorder p-6 rounded-xl">
             <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3">
               <FaCode className="text-orange-500" />
               Our Mission
@@ -57,7 +57,7 @@ export default function AboutPage() {
           </section>
 
           {/* Tech Stack */}
-          <section className="bg-[#111111] border border-[#222222] p-6 rounded-xl">
+          <section className="bg-rsk-panel border border-rsk-panelBorder p-6 rounded-xl">
             <h2 className="text-2xl font-semibold mb-6">
               Technology Stack
             </h2>
@@ -78,7 +78,7 @@ export default function AboutPage() {
           </section>
 
           {/* Open Source */}
-          <section className="bg-[#111111] border border-[#222222] p-6 rounded-xl">
+          <section className="bg-rsk-panel border border-rsk-panelBorder p-6 rounded-xl">
             <h2 className="text-2xl font-semibold mb-4">
               Open Source
             </h2>

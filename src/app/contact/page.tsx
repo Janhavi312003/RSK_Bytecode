@@ -17,12 +17,12 @@ export default function ContactPage() {
             <p className="text-gray-400 text-lg">
               Have questions, feedback, or need help with RSK Bytecode Verifier?
             </p>
-            <div className="mt-4 h-1 w-24 bg-[#FF6600] rounded"></div>
+            <div className="mt-4 h-1 w-24 bg-rsk-orange rounded" />
           </div>
 
           {/* Support Channels */}
-          <section className="bg-[#111111] border border-[#2a2a2a] p-8 rounded-xl mb-10">
-            <h2 className="text-2xl font-semibold text-[#FF6600] mb-8">
+          <section className="bg-rsk-panel border border-rsk-panelBorderStrong p-8 rounded-xl mb-10">
+            <h2 className="text-2xl font-semibold text-rsk-orange mb-8">
               Get Help
             </h2>
 
@@ -33,10 +33,10 @@ export default function ContactPage() {
                 href="https://github.com/rootstock/rsk-bytecode-verifier"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-black border border-[#2a2a2a] p-6 rounded-lg hover:border-[#FF6600] transition group"
+                className="bg-black border border-rsk-panelBorderStrong p-6 rounded-lg hover:border-rsk-orange transition group"
               >
-                <FaGithub className="text-[#FF6600] text-2xl mb-4" />
-                <h3 className="text-white font-semibold mb-2 group-hover:text-[#FF6600] transition-colors">
+                <FaGithub className="text-rsk-orange text-2xl mb-4" />
+                <h3 className="text-white font-semibold mb-2 group-hover:text-rsk-orange transition-colors">
                   GitHub
                 </h3>
                 <p className="text-gray-400 text-sm">
@@ -49,10 +49,10 @@ export default function ContactPage() {
                 href="https://discord.gg/rootstock"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-black border border-[#2a2a2a] p-6 rounded-lg hover:border-[#FF6600] transition group"
+                className="bg-black border border-rsk-panelBorderStrong p-6 rounded-lg hover:border-rsk-orange transition group"
               >
-                <FaDiscord className="text-[#FF6600] text-2xl mb-4" />
-                <h3 className="text-white font-semibold mb-2 group-hover:text-[#FF6600] transition-colors">
+                <FaDiscord className="text-rsk-orange text-2xl mb-4" />
+                <h3 className="text-white font-semibold mb-2 group-hover:text-rsk-orange transition-colors">
                   Discord
                 </h3>
                 <p className="text-gray-400 text-sm">
@@ -65,10 +65,10 @@ export default function ContactPage() {
                 href="https://discord.gg/rootstock"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-black border border-[#2a2a2a] p-6 rounded-lg hover:border-[#FF6600] transition group"
+                className="bg-black border border-rsk-panelBorderStrong p-6 rounded-lg hover:border-rsk-orange transition group"
               >
-                <FaEnvelope className="text-[#FF6600] text-2xl mb-4" />
-                <h3 className="text-white font-semibold mb-2 group-hover:text-[#FF6600] transition-colors">
+                <FaEnvelope className="text-rsk-orange text-2xl mb-4" />
+                <h3 className="text-white font-semibold mb-2 group-hover:text-rsk-orange transition-colors">
                   Community Support
                 </h3>
                 <p className="text-gray-400 text-sm">
@@ -80,8 +80,8 @@ export default function ContactPage() {
           </section>
 
           {/* Community Section */}
-          <section className="bg-[#111111] border border-[#2a2a2a] p-8 rounded-xl">
-            <h2 className="text-2xl font-semibold text-[#FF6600] mb-4">
+          <section className="bg-rsk-panel border border-rsk-panelBorderStrong p-8 rounded-xl">
+            <h2 className="text-2xl font-semibold text-rsk-orange mb-4">
               Community Driven
             </h2>
             <p className="text-gray-300 mb-6">
@@ -95,7 +95,7 @@ export default function ContactPage() {
                 href="https://github.com/rootstock/rsk-bytecode-verifier"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-2 bg-[#FF6600] text-white rounded-lg hover:bg-[#E55A00] transition"
+                className="px-5 py-2 bg-rsk-orange text-white rounded-lg hover:bg-orange-600 transition"
               >
                 View on GitHub
               </Link>
@@ -104,7 +104,7 @@ export default function ContactPage() {
                 href="https://discord.gg/rootstock"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-2 bg-black border border-[#2a2a2a] text-white rounded-lg hover:border-[#FF6600] transition"
+                className="px-5 py-2 bg-black border border-rsk-panelBorderStrong text-white rounded-lg hover:border-rsk-orange transition"
               >
                 Join Discord
               </Link>

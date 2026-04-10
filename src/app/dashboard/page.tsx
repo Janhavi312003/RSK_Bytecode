@@ -14,6 +14,13 @@ import { Label } from '@/components/ui/label';
 import { FaShieldAlt, FaInfoCircle, FaLock } from 'react-icons/fa';
 import { Card, CardContent } from '@/components/ui/card';
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
+import {
   normalizeContractAddress,
   contractAddressError,
   bytecodeError,
@@ -66,12 +73,32 @@ export default function DashboardPage() {
     !bytecodeValidationError &&
     !loading;
 
+  const walletDialogOpen = mounted && !isConnected;
+
   return (
-    <div className="min-h-screen bg-[#0B0B0B] text-white">
+    <div className="min-h-screen bg-rsk-dark text-white">
       {/* Subtle radial gradient background */}
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,107,0,0.03),_transparent_50%)] pointer-events-none" />
 
       <main className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <Dialog open={walletDialogOpen}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-3 text-white">
+                <FaLock className="text-orange-500 text-2xl" />
+                Wallet Connection Required
+              </DialogTitle>
+              <DialogDescription className="text-gray-300">
+                Please connect your wallet to access the bytecode verifier. This ensures you are on the correct
+                network and can interact with the blockchain.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="pt-2">
+              <ConnectButton />
+            </div>
+          </DialogContent>
+        </Dialog>
+
         {/* Header with icon and gradient */}
         <div className="flex items-center gap-4 mb-8">
           <div className="p-3 rounded-xl bg-gradient-to-br from-orange-500/20 to-transparent">
@@ -114,16 +141,13 @@ export default function DashboardPage() {
         </div>
 
         {/* Main verification card */}
-        <Card className="bg-gradient-to-br from-[#0F0F0F] to-[#0A0A0A] border-orange-500/10 shadow-2xl shadow-orange-500/5 relative">
+        <Card className="bg-gradient-to-br from-rsk-surface to-rsk-surface2 border-orange-500/10 shadow-2xl shadow-orange-500/5 relative">
+          {/* For hydration safety, we still dim/disable until mounted */}
           {showOverlay && (
-            <div className="absolute inset-0 bg-black/80 backdrop-blur-sm rounded-2xl flex flex-col items-center justify-center z-10 p-6">
-              <FaLock className="text-orange-500 text-5xl mb-4" />
-              <h2 className="text-2xl font-bold text-white mb-2">Wallet Connection Required</h2>
-              <p className="text-gray-300 text-center mb-6 max-w-md">
-                Please connect your wallet to access the bytecode verifier. This ensures you are on the correct network and can interact with the blockchain.
-              </p>
-              <ConnectButton />
-            </div>
+            <div
+              className="absolute inset-0 bg-black/60 rounded-2xl z-10"
+              aria-hidden="true"
+            />
           )}
 
           <CardContent className="p-8">

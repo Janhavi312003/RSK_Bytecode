@@ -40,7 +40,33 @@ describe('useVerification', () => {
       await result.current.verify('0xAddress', '0x1234');
     });
 
-    expect(result.current.error).toBe('No bytecode found at this address');
+    expect(result.current.error).toBe('empty bytecode');
+    expect(result.current.loading).toBe(false);
+  });
+
+  it('should handle error when deployed bytecode is 0x', async () => {
+    mockGetCode.mockResolvedValue('0x');
+
+    const { result } = renderHook(() => useVerification());
+
+    await act(async () => {
+      await result.current.verify('0xAddress', '0x1234');
+    });
+
+    expect(result.current.error).toBe('empty bytecode');
+    expect(result.current.loading).toBe(false);
+  });
+
+  it('should handle error when local bytecode is 0x', async () => {
+    mockGetCode.mockResolvedValue('0x1234');
+
+    const { result } = renderHook(() => useVerification());
+
+    await act(async () => {
+      await result.current.verify('0xAddress', '0x');
+    });
+
+    expect(result.current.error).toBe('empty bytecode');
     expect(result.current.loading).toBe(false);
   });
 });

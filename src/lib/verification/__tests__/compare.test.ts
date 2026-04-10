@@ -38,13 +38,56 @@ describe('compareBytecode', () => {
   });
 
   it('applies ignoreMetadata when option is set', () => {
-    // Same bytecode with different metadata (e.g. extra bytes at end) should match when metadata stripped
-    const base = '0x6080604052348015600f57600080fd5b50';
-    const withMetadata = base + 'a164736f6c6343'; // example suffix
-    const result = compareBytecode(withMetadata, base, { ignoreMetadata: true });
-    // After normalization both may be trimmed; we just check the option is applied (no throw)
-    expect(typeof result.match).toBe('boolean');
-    expect(result.deployedHash).toBeDefined();
-    expect(result.localHash).toBeDefined();
+    const runtime = '0x6001600055';
+    const meta = 'a264697066735822a264736f6c6343';
+    const len = (meta.length / 2).toString(16).padStart(4, '0');
+    const deployed = runtime + meta + len;
+    const local = runtime;
+
+    const result = compareBytecode(deployed, local, { ignoreMetadata: true });
+    expect(result.match).toBe(true);
+    expect(result.deployedHash).toBe(result.localHash);
+    expect(result.differences).toBeUndefined();
+  });
+
+  it('does not ignore metadata unless option is set', () => {
+    const runtime = '0x6001600055';
+    const meta = 'a264697066735822a264736f6c6343';
+    const len = (meta.length / 2).toString(16).padStart(4, '0');
+    const deployed = runtime + meta + len;
+    const local = runtime;
+
+    const result = compareBytecode(deployed, local, { ignoreMetadata: false });
+    expect(result.match).toBe(false);
+    expect(result.differences?.length).toBeGreaterThan(0);
+  });
+
+  it('computes multiple differences when several bytes differ', () => {
+    const deployed = '0x00aabbcc';
+    const local = '0x00aabbee';
+    const result = compareBytecode(deployed, local);
+    expect(result.match).toBe(false);
+    expect(result.differences).toHaveLength(1);
+    expect(result.differences![0]).toEqual({ index: 3, deployedByte: 'cc', localByte: 'ee' });
+  });
+
+  it('treats missing 0x prefix consistently via normalization', () => {
+    const deployed = 'deadbeef';
+    const local = '0xdeadbeef';
+    const result = compareBytecode(deployed, local);
+    expect(result.match).toBe(true);
+  });
+
+  it('marks lengthMismatch when local shorter than deployed', () => {
+    const deployed = '0xaabbcc';
+    const local = '0xaabb';
+    const result = compareBytecode(deployed, local);
+    expect(result.match).toBe(false);
+    expect(result.lengthMismatch).toBe(true);
+    expect(result.differences?.[0]).toEqual({
+      index: 2,
+      deployedByte: 'cc',
+      localByte: MISSING_BYTE,
+    });
   });
 });

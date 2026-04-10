@@ -16,7 +16,7 @@ export default function DocsPage() {
         <div className="space-y-8">
 
           {/* Overview */}
-          <section className="bg-[#111111] border border-[#222222] p-6 rounded-xl">
+          <section className="bg-rsk-panel border border-rsk-panelBorder p-6 rounded-xl">
             <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3">
               <FaShieldAlt className="text-orange-500" />
               Overview
@@ -30,7 +30,7 @@ export default function DocsPage() {
           </section>
 
           {/* Comparison Process */}
-          <section className="bg-[#111111] border border-[#222222] p-6 rounded-xl">
+          <section className="bg-rsk-panel border border-rsk-panelBorder p-6 rounded-xl">
             <h2 className="text-2xl font-semibold mb-6 flex items-center gap-3">
               <FaSearch className="text-orange-500" />
               Comparison Process
@@ -75,7 +75,7 @@ export default function DocsPage() {
           </section>
 
           {/* Deployed vs Compiled */}
-          <section className="bg-[#111111] border border-[#222222] p-6 rounded-xl">
+          <section className="bg-rsk-panel border border-rsk-panelBorder p-6 rounded-xl">
             <h2 className="text-2xl font-semibold mb-4 flex items-center gap-3">
               <FaCode className="text-orange-500" />
               Deployed vs Compiled Bytecode
@@ -91,7 +91,7 @@ export default function DocsPage() {
           </section>
 
           {/* Metadata */}
-          <section className="bg-[#111111] border border-[#222222] p-6 rounded-xl">
+          <section className="bg-rsk-panel border border-rsk-panelBorder p-6 rounded-xl">
             <h2 className="text-2xl font-semibold mb-4">
               Metadata Hash
             </h2>
@@ -104,7 +104,7 @@ export default function DocsPage() {
           </section>
 
           {/* Constructor */}
-          <section className="bg-[#111111] border border-[#222222] p-6 rounded-xl">
+          <section className="bg-rsk-panel border border-rsk-panelBorder p-6 rounded-xl">
             <h2 className="text-2xl font-semibold mb-4">
               Constructor Arguments
             </h2>
@@ -116,7 +116,7 @@ export default function DocsPage() {
           </section>
 
           {/* Security */}
-          <section className="bg-[#111111] border border-[#222222] p-6 rounded-xl">
+          <section className="bg-rsk-panel border border-rsk-panelBorder p-6 rounded-xl">
             <h2 className="text-2xl font-semibold mb-4">
               Security Considerations
             </h2>
