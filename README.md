@@ -287,26 +287,6 @@ Tests include
 
 ---
 
-# 🐛 Troubleshooting
-
-## MetaMask
-
-Problem: wallet not connecting
-Solution: refresh page & unlock MetaMask
-
-## Wrong Network
-
-Switch network to
-
-* Rootstock Mainnet (30)
-* Rootstock Testnet (31)
-
-## Bytecode mismatch
-
-Enable **Ignore metadata hash**
-
----
-
 # 🤝 Contributing
 
 1. Fork repository
@@ -347,19 +327,6 @@ MIT License
 * Foundry Book
 * RainbowKit
 * Wagmi
-
----
-
-# 🏆 Built For
-
-Rootstock Hacktivator Program
-
-This project demonstrates:
-
-* Production-ready Rootstock tool
-* Smart contract verification
-* Full stack Web3 development
-* Next.js + Foundry integration
 
 ---
 
