@@ -80,7 +80,7 @@ export default function DashboardPage() {
       {/* Subtle radial gradient background */}
       <div className="fixed inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(255,107,0,0.03),_transparent_50%)] pointer-events-none" />
 
-      <main className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <Dialog open={walletDialogOpen}>
           <DialogContent className="sm:max-w-md">
             <DialogHeader>
@@ -122,7 +122,17 @@ export default function DashboardPage() {
               <div>
                 <h3 className="font-semibold text-orange-300">Where to find Contract Address</h3>
                 <p className="text-sm text-gray-400">
-                  Get the address from a block explorer (like <a href="https://explorer.rootstock.io" target="_blank" className="text-orange-400 hover:underline">Rootstock Explorer</a>) or from your deployment script output.
+                  Get the address from a block explorer (like{' '}
+                  <a
+                    href="https://explorer.rootstock.io"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Rootstock Explorer (opens in new tab)"
+                    className="text-orange-400 hover:underline"
+                  >
+                    Rootstock Explorer
+                  </a>
+                  ) or from your deployment script output.
                 </p>
               </div>
             </CardContent>
@@ -210,7 +220,7 @@ export default function DashboardPage() {
             <ResultCard result={result} />
           </div>
         )}
-      </main>
+      </div>
     </div>
   );
 }

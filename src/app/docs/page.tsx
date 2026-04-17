@@ -5,7 +5,7 @@ import { FaBook, FaCode, FaShieldAlt, FaSearch } from 'react-icons/fa'
 export default function DocsPage() {
   return (
     <div className="min-h-screen bg-black text-white">
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
 
         {/* Header */}
         <div className="flex items-center gap-3 mb-10">
@@ -138,7 +138,7 @@ export default function DocsPage() {
           </section>
 
         </div>
-      </main>
+      </div>
     </div>
   )
 }

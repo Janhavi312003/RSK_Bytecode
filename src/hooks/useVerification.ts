@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { usePublicClient } from 'wagmi';
 import { compareBytecode, ComparisonResult } from '@/lib/verification/compare';
+import { isValidBytecode } from '@/lib/verification/validation';
 
 export function useVerification() {
   const [loading, setLoading] = useState(false);
@@ -21,12 +22,10 @@ export function useVerification() {
         throw new Error('Public client is not initialized');
       }
       const deployedBytecode = await publicClient.getCode({ address });
-      if (
-        !deployedBytecode ||
-        deployedBytecode === '0x' ||
-        !localBytecode ||
-        localBytecode === '0x'
-      ) {
+      if (!deployedBytecode || !isValidBytecode(deployedBytecode)) {
+        throw new Error('No bytecode found at this address (contract may not exist or is an EOA)');
+      }
+      if (!localBytecode || !isValidBytecode(localBytecode)) {
         throw new Error('empty bytecode');
       }
 

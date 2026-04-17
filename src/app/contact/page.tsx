@@ -6,7 +6,7 @@ import Link from 'next/link';
 export default function ContactPage() {
   return (
     <div className="min-h-screen flex flex-col bg-black">
-      <main className="flex-1">
+      <div className="flex-1">
         <div className="max-w-4xl mx-auto px-6 py-16">
 
           {/* Header */}
@@ -33,6 +33,7 @@ export default function ContactPage() {
                 href="https://github.com/rootstock/rsk-bytecode-verifier"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="RSK Bytecode Verifier GitHub repository (opens in new tab)"
                 className="bg-black border border-rsk-panelBorderStrong p-6 rounded-lg hover:border-rsk-orange transition group"
               >
                 <FaGithub className="text-rsk-orange text-2xl mb-4" />
@@ -49,6 +50,7 @@ export default function ContactPage() {
                 href="https://discord.gg/rootstock"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Rootstock Discord (opens in new tab)"
                 className="bg-black border border-rsk-panelBorderStrong p-6 rounded-lg hover:border-rsk-orange transition group"
               >
                 <FaDiscord className="text-rsk-orange text-2xl mb-4" />
@@ -62,17 +64,16 @@ export default function ContactPage() {
 
               {/* Email */}
               <a
-                href="https://discord.gg/rootstock"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:support@rootstock.io"
+                aria-label="Email Rootstock support"
                 className="bg-black border border-rsk-panelBorderStrong p-6 rounded-lg hover:border-rsk-orange transition group"
               >
                 <FaEnvelope className="text-rsk-orange text-2xl mb-4" />
                 <h3 className="text-white font-semibold mb-2 group-hover:text-rsk-orange transition-colors">
-                  Community Support
+                  Email Support
                 </h3>
                 <p className="text-gray-400 text-sm">
-                  Get support via the Rootstock Discord community.
+                  Reach out to Rootstock support via email.
                 </p>
               </a>
 
@@ -95,6 +96,7 @@ export default function ContactPage() {
                 href="https://github.com/rootstock/rsk-bytecode-verifier"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="View on GitHub (opens in new tab)"
                 className="px-5 py-2 bg-rsk-orange text-white rounded-lg hover:bg-orange-600 transition"
               >
                 View on GitHub
@@ -104,6 +106,7 @@ export default function ContactPage() {
                 href="https://discord.gg/rootstock"
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="Join Discord (opens in new tab)"
                 className="px-5 py-2 bg-black border border-rsk-panelBorderStrong text-white rounded-lg hover:border-rsk-orange transition"
               >
                 Join Discord
@@ -112,7 +115,7 @@ export default function ContactPage() {
           </section>
 
         </div>
-      </main>
+      </div>
     </div>
   );
 }

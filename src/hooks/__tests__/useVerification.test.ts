@@ -40,7 +40,7 @@ describe('useVerification', () => {
       await result.current.verify('0xAddress', '0x1234');
     });
 
-    expect(result.current.error).toBe('empty bytecode');
+    expect(result.current.error).toBe('No bytecode found at this address (contract may not exist or is an EOA)');
     expect(result.current.loading).toBe(false);
   });
 
@@ -53,7 +53,7 @@ describe('useVerification', () => {
       await result.current.verify('0xAddress', '0x1234');
     });
 
-    expect(result.current.error).toBe('empty bytecode');
+    expect(result.current.error).toBe('No bytecode found at this address (contract may not exist or is an EOA)');
     expect(result.current.loading).toBe(false);
   });
 

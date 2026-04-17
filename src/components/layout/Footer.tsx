@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import {
   FaGithub,
   FaTwitter,
@@ -13,7 +14,11 @@ import {
 } from "react-icons/fa";
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const [currentYear, setCurrentYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
 
   return (
     <footer className="bg-black border-t border-rsk-panelBorderStrong mt-auto w-full">
@@ -44,6 +49,7 @@ export default function Footer() {
                   href="https://rootstock.io"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Rootstock Website (opens in new tab)"
                   className="text-[#a0a0a0] hover:text-rsk-orange text-sm flex items-center gap-2 transition-colors"
                 >
                   <FaExternalLinkAlt className="text-xs" />
@@ -55,6 +61,7 @@ export default function Footer() {
                   href="https://developers.rsk.co"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Developer Docs (opens in new tab)"
                   className="text-[#a0a0a0] hover:text-rsk-orange text-sm flex items-center gap-2 transition-colors"
                 >
                   <FaBook className="text-xs" />
@@ -66,6 +73,7 @@ export default function Footer() {
                   href="https://explorer.rsk.co"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="RSK Explorer (opens in new tab)"
                   className="text-[#a0a0a0] hover:text-rsk-orange text-sm flex items-center gap-2 transition-colors"
                 >
                   <FaExternalLinkAlt className="text-xs" />
@@ -84,6 +92,7 @@ export default function Footer() {
                   href="https://github.com/rootstock"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Rootstock GitHub (opens in new tab)"
                   className="text-[#a0a0a0] hover:text-rsk-orange text-sm flex items-center gap-2 transition-colors"
                 >
                   <FaGithub className="text-xs" />
@@ -95,6 +104,7 @@ export default function Footer() {
                   href="https://twitter.com/rootstock_io"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Rootstock Twitter (opens in new tab)"
                   className="text-[#a0a0a0] hover:text-rsk-orange text-sm flex items-center gap-2 transition-colors"
                 >
                   <FaTwitter className="text-xs" />
@@ -106,6 +116,7 @@ export default function Footer() {
                   href="https://discord.gg/rootstock"
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label="Rootstock Discord (opens in new tab)"
                   className="text-[#a0a0a0] hover:text-rsk-orange text-sm flex items-center gap-2 transition-colors"
                 >
                   <FaDiscord className="text-xs" />
@@ -159,7 +170,7 @@ export default function Footer() {
         <div className="mt-8 pt-8 border-t border-rsk-panelBorderStrong">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-[#a0a0a0] text-sm">
-              © {currentYear} RSK Bytecode Verifier. All rights reserved.
+              © {currentYear ?? ''} RSK Bytecode Verifier. All rights reserved.
             </p>
              <p className="text-[#a0a0a0] text-sm flex items-center gap-2">
               Built with <FaHeart className="text-rsk-orange" /> for Rootstock

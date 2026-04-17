@@ -5,15 +5,18 @@ import { getRpcUrl } from './rpc';
 
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID ?? '';
 
-if (typeof window === 'undefined' && !projectId) {
-  console.warn(
-    '[RSK Bytecode Verifier] NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID is not set. WalletConnect may not work. Get one at https://cloud.walletconnect.com'
-  );
+if (!projectId) {
+  const message =
+    '[RSK Bytecode Verifier] Missing NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID. Set it from https://cloud.walletconnect.com';
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error(message);
+  }
+  console.warn(message);
 }
 
 export const config = getDefaultConfig({
   appName: 'RSK Bytecode Verifier',
-  projectId: projectId || '000000000000000000000000000000000',
+  projectId,
   chains: [rootstock, rootstockTestnet],
   transports: {
     [rootstock.id]: http(getRpcUrl(rootstock.id)),

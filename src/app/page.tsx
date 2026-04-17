@@ -9,7 +9,7 @@ export default function LandingPage() {
       {/* subtle background glow */}
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_top,_rgba(255,107,0,0.05),_transparent_50%)] pointer-events-none" />
 
-      <main className="relative max-w-6xl mx-auto px-6 py-24 text-center">
+      <div className="relative max-w-6xl mx-auto px-6 py-24 text-center">
 
         {/* Hero Section */}
         <div className="mb-14 flex flex-col items-center">
@@ -84,7 +84,7 @@ export default function LandingPage() {
 
         </div>
 
-      </main>
+      </div>
     </div>
   )
 }
